@@ -936,23 +936,24 @@ make.text = {
   quotedString: function () {
     return utils.common.quote(make.text.any())
   },
-  chars: function () {
-    return random.pick([
-      make.text.controlChar,
-      make.text.token,
-      make.text.assignmentOperator,
-      make.text.arithmeticOperator,
-      String.fromCharCode(make.text.layoutCharCodes()),
-      String.fromCharCode(make.text.bidiCharCodes())
-    ])
-  },
-  junk: function (maxlen) {
+  junk: function (maxlen = 2) {
     // generate some random junk in HTML-escaped format
     let junk = ''
     for (let i = 0; i < maxlen; i++) {
       junk += '&#' + Math.floor(random.float() * (0x10FFFF)) + ';'
     }
     return junk
+  },
+  chars: function () {
+    return random.pick([
+      make.text.controlChar,
+      make.text.token,
+      make.text.assignmentOperator,
+      make.text.arithmeticOperator,
+      make.text.junk,
+      String.fromCharCode(make.text.layoutCharCodes()),
+      String.fromCharCode(make.text.bidiCharCodes())
+    ])
   },
   any: function () {
     // Generate a string compromised of random individual characters
